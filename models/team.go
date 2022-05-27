@@ -53,3 +53,25 @@ func GetTeams(count int) ([]Team, error) {
 
 	return teams, nil
 }
+
+func GetTeamById(id string) (Team, error) {
+	stmt, err := DB.Prepare("SELECT team_id, team_full_name FROM mlb_team_inf WHERE team_id = ?")
+
+	if err != nil {
+		return Team{}, err
+	}
+
+	team := Team{}
+
+	sqlErr := stmt.QueryRow(id).Scan(&team.Id, &team.FullName)
+
+	if sqlErr != nil {
+		if sqlErr == sql.ErrNoRows {
+			return Team{}, nil
+		}
+		return Team{}, sqlErr
+	}
+
+	return team, nil
+
+}

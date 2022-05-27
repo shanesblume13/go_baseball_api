@@ -44,9 +44,16 @@ func getTeams(c *gin.Context) {
 
 func getTeamById(c *gin.Context) {
 	id := c.Param("id")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "getTeamById " + id + " called",
-	})
+
+	team, err := models.GetTeamById(id)
+	checkError(err)
+
+	if team.FullName == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No Records Found"})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": team})
+	}
 }
 
 func options(c *gin.Context) {
