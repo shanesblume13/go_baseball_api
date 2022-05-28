@@ -24,9 +24,10 @@ func main() {
 		v1.GET("/", getWelcomeMessage)
 		v1.GET("/team", getTeams)
 		v1.GET("/team/:id", getTeamById)
-		v1.GET("team/:id/player", getPlayersByTeamId)
+		v1.GET("/team/:id/player", getPlayersByTeamId)
 		v1.GET("/player", getPlayers)
-		v1.GET("player/:id", getPlayerById)
+		v1.GET("/player/:id", getPlayerById)
+		v1.GET("/player/:id/pitch", getPitchesByPlayerId)
 	}
 
 	router.Run()
@@ -111,5 +112,19 @@ func getPlayersByTeamId(c *gin.Context) {
 		return
 	} else {
 		c.JSON(http.StatusOK, gin.H{"data": players})
+	}
+}
+
+func getPitchesByPlayerId(c *gin.Context) {
+	playerId := c.Param("id")
+
+	pitches, err := models.GetPitchesByPlayerId(playerId)
+	checkError(err)
+
+	if pitches == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No Records Fuond"})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": pitches})
 	}
 }
