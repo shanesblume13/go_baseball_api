@@ -1,13 +1,18 @@
 package main
 
 import (
+	// "html/template"
+	// "log"
 	"net/http"
+	// "os"
 
 	"github.com/gin-gonic/gin"
 	"shasco.app/baseball/models"
 )
 
 func main() {
+
+	// API
 	err := models.ConnectDatabase()
 	checkError(err)
 
@@ -16,6 +21,7 @@ func main() {
 	// API v1
 	v1 := router.Group("/api/v1")
 	{
+		v1.GET("/", getWelcomeMessage)
 		v1.GET("/team", getTeams)
 		v1.GET("/team/:id", getTeamById)
 		v1.GET("team/:id/player", getPlayersByTeamId)
@@ -30,6 +36,12 @@ func checkError(err error) {
 	if err != nil {
 		panic(err)
 	}
+}
+
+// WLECOME //
+
+func getWelcomeMessage(c *gin.Context) {
+	c.JSON(http.StatusOK, gin.H{"data": "Welcoome to the GO Baseball API"})
 }
 
 // TEAMS //
