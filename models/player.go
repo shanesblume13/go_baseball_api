@@ -12,11 +12,11 @@ type Player struct {
 	FullName             string `json:"fullName"`
 	TeamId               int    `json:"teamId"`
 	PositionCode         string `json:"positionCode"`
-	PositionName         string `json:"positionNamee"`
+	PositionName         string `json:"positionName"`
 	PositionType         string `json:"positionType"`
 	PositionAbbreviation string `json:"positionAbbreviation"`
 	StatusDescription    string `json:"statusDescription"`
-	RosterType           string `json:"rostType"`
+	RosterType           string `json:"rosterType"`
 }
 
 func GetPlayers(count int) ([]Player, error) {

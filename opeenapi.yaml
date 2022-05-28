@@ -42,46 +42,46 @@ definitions:
   Team:
     type: object
     required:
-      - team_id
-      - team_abbreviation
-      - team_full_name
-      - short_name
-      - franchise_name
-      - club_name
-      - venue_id
-      - venue_name
-      - league_id
-      - league_name
-      - division_id
-      - division_name
+      - id
+      - abbreviation
+      - fullName
+      - shortName
+      - franchiseName
+      - clubName
+      - venueId
+      - venueName
+      - leagueId
+      - leagueName
+      - divisionId
+      - divisionName
     properties:
-      team_id:
+      id:
         type: integer
         format: int64
-      team_abbreviation:
+      abbreviation:
         type: string
-      team_full_name:
+      fullName:
         type: string
-      short_name:
+      shortName:
         type: string
-      franchise_name:
+      franchiseName:
         type: string
-      club_name:
+      clubName:
         type: string
-      venue_id:
+      venueId:
         type: integer
         format: int64
-      venue_name:
+      venueName:
         type: string
-      league_id:
+      leagueId:
         type: integer
         format: int64
-      league_name:
+      leagueName:
         type: string
-      division_id:
+      divisionId:
         type: integer
         format: int64
-      division_name:
+      divisionName:
         type: string
 Player:
     type: object
