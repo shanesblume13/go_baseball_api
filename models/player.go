@@ -7,16 +7,16 @@ import (
 )
 
 type Player struct {
-	Id                   int    `json:"person_id"`
-	JerseyNumber         string `json:"jersey_number"`
-	FullName             string `json:"person_full_name"`
-	TeamId               int    `json:"team_id"`
-	PositionCode         string `json:"position_code"`
-	PositionName         string `json:"position_name"`
-	PositionType         string `json:"position_type"`
-	PositionAbbreviation string `json:"position_abbreviation"`
-	StatusDescription    string `json:"status_description"`
-	RosterType           string `json:"roster_type"`
+	Id                   int    `json:"id"`
+	JerseyNumber         string `json:"jerseyNumber"`
+	FullName             string `json:"fullName"`
+	TeamId               int    `json:"teamId"`
+	PositionCode         string `json:"positionCode"`
+	PositionName         string `json:"positionNamee"`
+	PositionType         string `json:"positionType"`
+	PositionAbbreviation string `json:"positionAbbreviation"`
+	StatusDescription    string `json:"statusDescription"`
+	RosterType           string `json:"rostType"`
 }
 
 func GetPlayers(count int) ([]Player, error) {

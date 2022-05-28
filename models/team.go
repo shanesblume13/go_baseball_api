@@ -7,18 +7,18 @@ import (
 )
 
 type Team struct {
-	Id            int    `json:"team_id"`
-	Abbreviation  string `json:"team_abbreviation"`
-	FullName      string `json:"team_full_name"`
-	ShortName     string `json:"short_name"`
-	FranchiseName string `json:"franchise_name"`
-	ClubName      string `json:"club_name"`
-	VenueId       int    `json:"venue_id"`
-	VenueName     string `json:"venue_name"`
-	LeagueId      int    `json:"league_id"`
-	LeagueName    string `json:"league_name"`
-	DivisionId    int    `json:"division_id"`
-	DivisionName  string `json:"division_name"`
+	Id            int    `json:"id"`
+	Abbreviation  string `json:"abbreviation"`
+	FullName      string `json:"fullName"`
+	ShortName     string `json:"shortName"`
+	FranchiseName string `json:"franchiseName"`
+	ClubName      string `json:"clubName"`
+	VenueId       int    `json:"venueId"`
+	VenueName     string `json:"venueName"`
+	LeagueId      int    `json:"leagueId"`
+	LeagueName    string `json:"leagueName"`
+	DivisionId    int    `json:"divisionId"`
+	DivisionName  string `json:"divisionName"`
 }
 
 func GetTeams(count int) ([]Team, error) {

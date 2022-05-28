@@ -5,21 +5,24 @@ import (
 )
 
 type Pitch struct {
-	PitcherId       int    `json:"matchup.pitcher.id"`
-	EndTime         string `json:"endTime"`
-	CallDescription string `json:"details.call.description"`
+	PitcherId        int    `json:"pitcherId"`
+	BatterId         int    `json:"batterId"`
+	EndTime          string `json:"endTime"`
+	PitchDescription string `json:"pitchDescription"`
+	CallDescription  string `json:"callDescription"`
 }
 
 func GetPitchesByPlayerId(playerId string) ([]Pitch, error) {
 	rows, err := DB.Query(`
 		SELECT 
 			[matchup.pitcher.id],
+			[mathcup.batter.id],
 			endTime,
+			[details.type.description],
 			[details.call.description]
 		FROM pbp 
 		WHERE [matchup.pitcher.id] = ? AND isPitch = 1
-		ORDER BY endTime DESC
-		LIMIT 100`, playerId)
+		ORDER BY endTime DESC`, playerId)
 
 	if err != nil {
 		return nil, err
@@ -33,7 +36,9 @@ func GetPitchesByPlayerId(playerId string) ([]Pitch, error) {
 		pitch := Pitch{}
 		err := rows.Scan(
 			&pitch.PitcherId,
+			&pitch.BatterId,
 			&pitch.EndTime,
+			&pitch.PitchDescription,
 			&pitch.CallDescription,
 		)
 

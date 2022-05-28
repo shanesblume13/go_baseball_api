@@ -26,7 +26,12 @@
             "target": {
                 "minikube": {}
             },
-            "watch": true
+            "watch": true,
+            "debug": {
+                "sourceFileMap": {
+                    "${workspaceFolder}": "/baseball"
+                }
+            }
         },
         {
             "name": "Launch Package",
