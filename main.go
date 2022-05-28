@@ -27,7 +27,10 @@ func main() {
 		v1.GET("/team/:id/player", getPlayersByTeamId)
 		v1.GET("/player", getPlayers)
 		v1.GET("/player/:id", getPlayerById)
-		v1.GET("/player/:id/pitch", getPitchesByPlayerId)
+		//v1.GET("/player/:pitcherId/pitch", getPitchesByPlayerId)
+		//v1.GET("/player/:pitcherId/pitch/against/:batterId", getPitchesByPlayerIds)
+		v1.GET("/pitch/pitcher/:pitcherId", getPitchesByPitcherId)
+		v1.GET("/pitch/pitcher/:pitcherId/batter/:batterId", getPitchesByPitcherIdVsBatterId)
 	}
 
 	router.Run()
@@ -115,10 +118,25 @@ func getPlayersByTeamId(c *gin.Context) {
 	}
 }
 
-func getPitchesByPlayerId(c *gin.Context) {
-	playerId := c.Param("id")
+func getPitchesByPitcherId(c *gin.Context) {
+	pitcherId := c.Param("pitcherId")
 
-	pitches, err := models.GetPitchesByPlayerId(playerId)
+	pitches, err := models.GetPitchesByPitcherId(pitcherId)
+	checkError(err)
+
+	if pitches == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No Records Fuond"})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": pitches})
+	}
+}
+
+func getPitchesByPitcherIdVsBatterId(c *gin.Context) {
+	pitcherId := c.Param("pitcherId")
+	batterId := c.Param("batterId")
+
+	pitches, err := models.GetPitchesByPitcherIdVsBatterId(pitcherId, batterId)
 	checkError(err)
 
 	if pitches == nil {
