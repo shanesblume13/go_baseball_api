@@ -18,7 +18,9 @@ func main() {
 	{
 		v1.GET("/team", getTeams)
 		v1.GET("/team/:id", getTeamById)
-		v1.OPTIONS("/pitch", options)
+		v1.GET("team/:id/player", getPlayersByTeamId)
+		v1.GET("/player", getPlayers)
+		v1.GET("player/:id", getPlayerById)
 	}
 
 	router.Run()
@@ -29,6 +31,8 @@ func checkError(err error) {
 		panic(err)
 	}
 }
+
+// TEAMS //
 
 func getTeams(c *gin.Context) {
 	teams, err := models.GetTeams(50)
@@ -56,8 +60,44 @@ func getTeamById(c *gin.Context) {
 	}
 }
 
-func options(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"message": "options called",
-	})
+// PLAYERS //
+
+func getPlayers(c *gin.Context) {
+	players, err := models.GetPlayers(5000)
+	checkError(err)
+
+	if players == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No Records Fuond"})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": players})
+	}
+}
+
+func getPlayerById(c *gin.Context) {
+	id := c.Param("id")
+
+	player, err := models.GetPlayerById(id)
+	checkError(err)
+
+	if player.FullName == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No Records Found"})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": player})
+	}
+}
+
+func getPlayersByTeamId(c *gin.Context) {
+	teamId := c.Param("id")
+
+	players, err := models.GetPlayersByTeamId(teamId)
+	checkError(err)
+
+	if players == nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "No Records Fuond"})
+		return
+	} else {
+		c.JSON(http.StatusOK, gin.H{"data": players})
+	}
 }
